@@ -1,0 +1,34 @@
+[
+  {
+    "id": 1,
+    "category": "Novel",
+    "title": "The Weight of Amber Light",
+    "excerpt": "A meditation on memory and belonging, set against the landscapes of a world caught between past and future.",
+    "year": "2025",
+    "link": ""
+  },
+  {
+    "id": 2,
+    "category": "Short Fiction",
+    "title": "Cartography of Silence",
+    "excerpt": "When a cartographer is commissioned to map the quietest places on earth, she discovers that silence has its own geography.",
+    "year": "2024",
+    "link": ""
+  },
+  {
+    "id": 3,
+    "category": "Essay Collection",
+    "title": "Notes from the Periphery",
+    "excerpt": "Essays on observation, displacement, and the art of paying attention to what exists at the edges.",
+    "year": "2023",
+    "link": ""
+  },
+  {
+    "id": 4,
+    "category": "Poetry",
+    "title": "Tidal Vernacular",
+    "excerpt": "A collection of poems charting the rhythms of coastal life and the language of water.",
+    "year": "2022",
+    "link": ""
+  }
+]

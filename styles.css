@@ -456,6 +456,12 @@ img {
   pointer-events: none;
 }
 
+.about-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .about-image-placeholder {
   width: 100%;
   height: 100%;
@@ -571,6 +577,52 @@ img {
 }
 
 .photo-item:hover .photo-placeholder span {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.photo-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s var(--ease-out-expo), filter 0.7s ease;
+}
+
+.photo-item:hover img {
+  transform: scale(1.05);
+  filter: brightness(0.85);
+}
+
+.photo-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.photo-overlay span {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.85);
+  text-align: center;
+  line-height: 1.6;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.4s ease, transform 0.4s var(--ease-out-expo);
+}
+
+.photo-overlay small {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+.photo-item:hover .photo-overlay span {
   opacity: 1;
   transform: translateY(0);
 }
