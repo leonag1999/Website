@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guillermo Leon</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <a href="#home" class="nav-logo" data-section="home">GL</a>
+    <div class="nav-links">
+      <a href="#writing" class="nav-link" data-section="writing">Writing</a>
+      <a href="#about" class="nav-link" data-section="about">About</a>
+      <a href="#photography" class="nav-link" data-section="photography">Photography</a>
+      <a href="#contact" class="nav-link" data-section="contact">Contact</a>
+    </div>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile Menu Overlay -->
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="#writing" class="mobile-link" data-section="writing">Writing</a>
+    <a href="#about" class="mobile-link" data-section="about">About</a>
+    <a href="#photography" class="mobile-link" data-section="photography">Photography</a>
+    <a href="#contact" class="mobile-link" data-section="contact">Contact</a>
+  </div>
+
+  <!-- Page Transition Overlay -->
+  <div class="page-transition" id="page-transition"></div>
+
+  <main>
+
+    <!-- Hero / Landing -->
+    <section class="section section--hero active" id="home">
+      <div class="hero">
+        <div class="hero-content">
+          <p class="hero-greeting fade-element">Author &middot; Photographer &middot; Storyteller</p>
+          <h1 class="hero-name fade-element">
+            <span class="hero-name-line">Guillermo</span>
+            <span class="hero-name-line">Leon</span>
+          </h1>
+          <div class="hero-divider fade-element"></div>
+          <p class="hero-tagline fade-element">Exploring the spaces between words and light.</p>
+          <a href="#writing" class="hero-cta fade-element" data-section="writing">Explore My Work</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Writing -->
+    <section class="section section--writing" id="writing">
+      <div class="section-container">
+        <header class="section-header">
+          <span class="section-label fade-element">01</span>
+          <h2 class="section-title fade-element">Writing</h2>
+          <p class="section-subtitle fade-element">Selected works and publications</p>
+        </header>
+
+        <div class="writing-grid">
+          <article class="writing-card fade-element">
+            <span class="writing-card-category">Novel</span>
+            <h3 class="writing-card-title">The Weight of Amber Light</h3>
+            <p class="writing-card-excerpt">A meditation on memory and belonging, set against the landscapes of a world caught between past and future.</p>
+            <div class="writing-card-meta">
+              <span>2025</span>
+              <span class="writing-card-link">Read More &rarr;</span>
+            </div>
+          </article>
+
+          <article class="writing-card fade-element">
+            <span class="writing-card-category">Short Fiction</span>
+            <h3 class="writing-card-title">Cartography of Silence</h3>
+            <p class="writing-card-excerpt">When a cartographer is commissioned to map the quietest places on earth, she discovers that silence has its own geography.</p>
+            <div class="writing-card-meta">
+              <span>2024</span>
+              <span class="writing-card-link">Read More &rarr;</span>
+            </div>
+          </article>
+
+          <article class="writing-card fade-element">
+            <span class="writing-card-category">Essay Collection</span>
+            <h3 class="writing-card-title">Notes from the Periphery</h3>
+            <p class="writing-card-excerpt">Essays on observation, displacement, and the art of paying attention to what exists at the edges.</p>
+            <div class="writing-card-meta">
+              <span>2023</span>
+              <span class="writing-card-link">Read More &rarr;</span>
+            </div>
+          </article>
+
+          <article class="writing-card fade-element">
+            <span class="writing-card-category">Poetry</span>
+            <h3 class="writing-card-title">Tidal Vernacular</h3>
+            <p class="writing-card-excerpt">A collection of poems charting the rhythms of coastal life and the language of water.</p>
+            <div class="writing-card-meta">
+              <span>2022</span>
+              <span class="writing-card-link">Read More &rarr;</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section class="section section--about" id="about">
+      <div class="section-container">
+        <header class="section-header">
+          <span class="section-label fade-element">02</span>
+          <h2 class="section-title fade-element">About</h2>
+          <p class="section-subtitle fade-element">The story behind the stories</p>
+        </header>
+
+        <div class="about-layout">
+          <div class="about-image-wrapper fade-element">
+            <div class="about-image">
+              <div class="about-image-placeholder">
+                <span>GL</span>
+              </div>
+            </div>
+          </div>
+          <div class="about-text">
+            <p class="about-paragraph fade-element">
+              Guillermo Leon is a writer and photographer whose work explores the intersections of memory, place, and identity. Born with a deep curiosity for the stories that live in quiet corners, he has spent years honing a craft that moves fluidly between prose, poetry, and the visual image.
+            </p>
+            <p class="about-paragraph fade-element">
+              His writing has been shaped by years of travel, observation, and a commitment to capturing the textures of lived experience. Whether through the lens of a camera or the precision of language, Guillermo seeks to illuminate what often goes unseen.
+            </p>
+            <p class="about-paragraph fade-element">
+              When not writing, he can be found wandering with a camera, searching for the light that reveals a place's true character.
+            </p>
+            <div class="about-details fade-element">
+              <div class="about-detail">
+                <span class="about-detail-label">Based in</span>
+                <span class="about-detail-value">New York</span>
+              </div>
+              <div class="about-detail">
+                <span class="about-detail-label">Working in</span>
+                <span class="about-detail-value">Fiction, Essays, Photography</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Photography -->
+    <section class="section section--photography" id="photography">
+      <div class="section-container">
+        <header class="section-header">
+          <span class="section-label fade-element">03</span>
+          <h2 class="section-title fade-element">Photography</h2>
+          <p class="section-subtitle fade-element">Moments between words</p>
+        </header>
+
+        <div class="photo-grid">
+          <div class="photo-item photo-item--tall fade-element">
+            <div class="photo-placeholder" style="--hue: 200; --sat: 15%; --light: 75%;">
+              <span>Morning Fog<br><small>Coastal Series</small></span>
+            </div>
+          </div>
+          <div class="photo-item fade-element">
+            <div class="photo-placeholder" style="--hue: 35; --sat: 20%; --light: 70%;">
+              <span>Golden Hour<br><small>Urban Light</small></span>
+            </div>
+          </div>
+          <div class="photo-item fade-element">
+            <div class="photo-placeholder" style="--hue: 160; --sat: 12%; --light: 68%;">
+              <span>Still Water<br><small>Reflections</small></span>
+            </div>
+          </div>
+          <div class="photo-item photo-item--wide fade-element">
+            <div class="photo-placeholder" style="--hue: 220; --sat: 10%; --light: 65%;">
+              <span>The Long Road<br><small>Journeys</small></span>
+            </div>
+          </div>
+          <div class="photo-item fade-element">
+            <div class="photo-placeholder" style="--hue: 15; --sat: 18%; --light: 72%;">
+              <span>Doorways<br><small>Architecture</small></span>
+            </div>
+          </div>
+          <div class="photo-item photo-item--tall fade-element">
+            <div class="photo-placeholder" style="--hue: 280; --sat: 8%; --light: 70%;">
+              <span>Dusk<br><small>Evening Series</small></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="section section--contact" id="contact">
+      <div class="section-container">
+        <header class="section-header">
+          <span class="section-label fade-element">04</span>
+          <h2 class="section-title fade-element">Contact</h2>
+          <p class="section-subtitle fade-element">Let's start a conversation</p>
+        </header>
+
+        <div class="contact-layout">
+          <div class="contact-info fade-element">
+            <p class="contact-text">
+              Whether you're interested in collaborating, have a question about my work, or simply want to say hello — I'd love to hear from you.
+            </p>
+            <div class="contact-channels">
+              <a href="mailto:hello@guillermoeleon.com" class="contact-channel">
+                <span class="contact-channel-label">Email</span>
+                <span class="contact-channel-value">hello@guillermoeleon.com</span>
+              </a>
+            </div>
+          </div>
+
+          <form class="contact-form fade-element" id="contact-form">
+            <div class="form-group">
+              <label for="name" class="form-label">Name</label>
+              <input type="text" id="name" name="name" class="form-input" required autocomplete="name">
+            </div>
+            <div class="form-group">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" id="email" name="email" class="form-input" required autocomplete="email">
+            </div>
+            <div class="form-group">
+              <label for="message" class="form-label">Message</label>
+              <textarea id="message" name="message" class="form-input form-textarea" rows="5" required></textarea>
+            </div>
+            <button type="submit" class="form-submit">
+              <span>Send Message</span>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <span class="footer-name">Guillermo Leon</span>
+      <span class="footer-year">&copy; 2026</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
