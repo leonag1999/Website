@@ -317,7 +317,7 @@ img {
 }
 
 .hero-name {
-  font-family: var(--font-serif);
+  font-family: 'Calisto MT', 'Bookman Old Style', Georgia, serif;
   font-weight: 300;
   line-height: 1.05;
   letter-spacing: -0.02em;
