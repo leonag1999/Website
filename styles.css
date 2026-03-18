@@ -317,6 +317,7 @@ img {
 }
 
 .hero-name {
+  font-family: 'Lora', Georgia, serif;
   font-weight: 300;
   line-height: 1.05;
   letter-spacing: -0.02em;
@@ -326,14 +327,6 @@ img {
 .hero-name-line {
   display: block;
   font-size: clamp(4rem, 12vw, 9rem);
-}
-
-.hero-name-line:first-child {
-  font-family: 'Lora', Georgia, serif;
-}
-
-.hero-name-line:last-child {
-  font-family: 'Nunito', 'Inter', sans-serif;
 }
 
 .hero-divider {
