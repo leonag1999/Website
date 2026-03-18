@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — Guillermo Leon</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #faf9f7;
+      --bg-alt: #f3f1ed;
+      --text: #1a1a1a;
+      --text-muted: #6b6560;
+      --accent: #8b7355;
+      --border: #e5e0d8;
+      --card: #ffffff;
+      --danger: #c0392b;
+      --success: #27ae60;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* --- Login Screen --- */
+    .login-screen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .login-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 48px;
+      max-width: 400px;
+      width: 100%;
+    }
+
+    .login-box h1 {
+      font-size: 1.4rem;
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+
+    .login-box p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+    }
+
+    .login-box input {
+      width: 100%;
+      padding: 14px 0;
+      border: none;
+      border-bottom: 1px solid var(--border);
+      background: transparent;
+      font-family: inherit;
+      font-size: 1rem;
+      outline: none;
+      margin-bottom: 24px;
+    }
+
+    .login-box input:focus {
+      border-bottom-color: var(--accent);
+    }
+
+    .login-error {
+      color: var(--danger);
+      font-size: 0.8rem;
+      margin-bottom: 16px;
+      display: none;
+    }
+
+    /* --- Admin Panel (hidden until login) --- */
+    .admin-panel { display: none; }
+
+    .admin-header {
+      padding: 20px clamp(24px, 5vw, 64px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--card);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .admin-header h1 {
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+    }
+
+    .admin-body {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px clamp(24px, 5vw, 64px);
+    }
+
+    /* --- Tabs --- */
+    .tabs {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 40px;
+    }
+
+    .tab {
+      padding: 12px 24px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-muted);
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .tab:hover { color: var(--text); }
+    .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* --- Shared Form Styles --- */
+    .field {
+      margin-bottom: 24px;
+    }
+
+    .field label {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .field input,
+    .field textarea,
+    .field select {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      font-family: inherit;
+      font-size: 0.95rem;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .field input:focus,
+    .field textarea:focus,
+    .field select:focus {
+      border-color: var(--accent);
+    }
+
+    .field textarea {
+      resize: vertical;
+      min-height: 100px;
+      line-height: 1.7;
+    }
+
+    /* --- Buttons --- */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      font-family: inherit;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border: 1px solid var(--text);
+      background: transparent;
+      color: var(--text);
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .btn:hover {
+      background: var(--text);
+      color: var(--bg);
+    }
+
+    .btn--accent {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .btn--accent:hover {
+      background: var(--accent);
+      color: white;
+    }
+
+    .btn--danger {
+      border-color: var(--danger);
+      color: var(--danger);
+    }
+
+    .btn--danger:hover {
+      background: var(--danger);
+      color: white;
+    }
+
+    .btn--small {
+      padding: 8px 16px;
+      font-size: 0.7rem;
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 12px;
+      margin-top: 32px;
+    }
+
+    /* --- Cards (editable items) --- */
+    .edit-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 32px;
+      margin-bottom: 20px;
+    }
+
+    .edit-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .edit-card-header h3 {
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    /* --- Photo Upload --- */
+    .photo-upload-area {
+      border: 2px dashed var(--border);
+      padding: 32px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      margin-bottom: 12px;
+    }
+
+    .photo-upload-area:hover {
+      border-color: var(--accent);
+      background: var(--bg-alt);
+    }
+
+    .photo-upload-area p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .photo-upload-area small {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      display: block;
+      margin-top: 8px;
+    }
+
+    .photo-preview {
+      width: 100%;
+      max-height: 200px;
+      object-fit: cover;
+      margin-bottom: 12px;
+      display: none;
+    }
+
+    /* --- Toast notification --- */
+    .toast {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      padding: 16px 28px;
+      background: var(--text);
+      color: var(--bg);
+      font-size: 0.85rem;
+      font-weight: 400;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+      z-index: 100;
+    }
+
+    .toast.visible {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* --- Instructions --- */
+    .instructions {
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      padding: 24px;
+      margin-bottom: 32px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+    }
+
+    .instructions strong {
+      color: var(--text);
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .login-box { padding: 32px 24px; }
+      .edit-card { padding: 20px; }
+      .tabs { overflow-x: auto; }
+      .tab { padding: 12px 16px; white-space: nowrap; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Login Screen -->
+  <div class="login-screen" id="login-screen">
+    <div class="login-box">
+      <h1>Admin Panel</h1>
+      <p>Enter your password to manage site content.</p>
+      <p class="login-error" id="login-error">Incorrect password. Please try again.</p>
+      <input type="password" id="login-password" placeholder="Password" autofocus>
+      <button class="btn btn--accent" onclick="attemptLogin()">Enter</button>
+    </div>
+  </div>
+
+  <!-- Admin Panel -->
+  <div class="admin-panel" id="admin-panel">
+    <div class="admin-header">
+      <h1>Site Admin</h1>
+      <div style="display: flex; gap: 12px; align-items: center;">
+        <a href="index.html" class="btn btn--small">View Site</a>
+        <button class="btn btn--small" onclick="logout()">Log Out</button>
+      </div>
+    </div>
+
+    <div class="admin-body">
+      <div class="tabs">
+        <button class="tab active" onclick="switchTab('writing')">Writing</button>
+        <button class="tab" onclick="switchTab('about')">About</button>
+        <button class="tab" onclick="switchTab('photos')">Photography</button>
+      </div>
+
+      <!-- Writing Tab -->
+      <div class="tab-content active" id="tab-writing">
+        <div class="instructions">
+          <strong>Writing Section</strong> — Add, edit, or remove writing entries.
+          Changes are saved to <code>content/writing.json</code>.
+          If hosting on GitHub Pages, download the updated file and commit it to your repo.
+        </div>
+        <div id="writing-entries"></div>
+        <div class="btn-row">
+          <button class="btn btn--accent" onclick="addWritingEntry()">+ Add Entry</button>
+          <button class="btn" onclick="saveWriting()">Save Changes</button>
+          <button class="btn btn--small" onclick="downloadFile('writing')">Download JSON</button>
+        </div>
+      </div>
+
+      <!-- About Tab -->
+      <div class="tab-content" id="tab-about">
+        <div class="instructions">
+          <strong>About Section</strong> — Edit your bio paragraphs, details, and profile photo.
+          Changes are saved to <code>content/about.json</code>.
+        </div>
+        <div id="about-fields"></div>
+        <div class="btn-row">
+          <button class="btn" onclick="saveAbout()">Save Changes</button>
+          <button class="btn btn--small" onclick="downloadFile('about')">Download JSON</button>
+        </div>
+      </div>
+
+      <!-- Photos Tab -->
+      <div class="tab-content" id="tab-photos">
+        <div class="instructions">
+          <strong>Photography Section</strong> — Manage your photo gallery.<br>
+          <strong>To add photos:</strong> Place image files in the <code>images/</code> folder,
+          then enter the filename here (e.g. <code>images/my-photo.jpg</code>).<br>
+          Supported layouts: <strong>default</strong>, <strong>tall</strong> (spans 2 rows), <strong>wide</strong> (spans 2 columns).
+        </div>
+        <div id="photo-entries"></div>
+        <div class="btn-row">
+          <button class="btn btn--accent" onclick="addPhotoEntry()">+ Add Photo</button>
+          <button class="btn" onclick="savePhotos()">Save Changes</button>
+          <button class="btn btn--small" onclick="downloadFile('photos')">Download JSON</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    /* ================================================
+       Admin Panel — Password-Protected Content Editor
+       ================================================ */
+
+    // --- Password Setup ---
+    // To set your password, run this in the browser console:
+    //   setAdminPassword('your-password')
+    // The password hash is stored in localStorage.
+    // Default password on first use: "admin" (change it immediately!)
+
+    var contentData = { writing: [], about: {}, photos: [] };
+
+    // --- Password Hashing (SHA-256) ---
+    async function hashPassword(password) {
+      var encoder = new TextEncoder();
+      var data = encoder.encode(password);
+      var hashBuffer = await crypto.subtle.digest('SHA-256', data);
+      var hashArray = Array.from(new Uint8Array(hashBuffer));
+      return hashArray.map(function (b) { return b.toString(16).padStart(2, '0'); }).join('');
+    }
+
+    // Set or update the admin password
+    window.setAdminPassword = async function (newPassword) {
+      if (!newPassword || newPassword.length < 6) {
+        console.error('Password must be at least 6 characters.');
+        return;
+      }
+      var hash = await hashPassword(newPassword);
+      localStorage.setItem('gl_admin_hash', hash);
+      console.log('Admin password updated successfully.');
+    };
+
+    async function attemptLogin() {
+      var input = document.getElementById('login-password');
+      var errorEl = document.getElementById('login-error');
+      var password = input.value;
+
+      if (!password) return;
+
+      var hash = await hashPassword(password);
+      var storedHash = localStorage.getItem('gl_admin_hash');
+
+      // Default password "admin" if no password has been set
+      if (!storedHash) {
+        var defaultHash = await hashPassword('admin');
+        localStorage.setItem('gl_admin_hash', defaultHash);
+        storedHash = defaultHash;
+      }
+
+      if (hash === storedHash) {
+        sessionStorage.setItem('gl_admin_auth', 'true');
+        document.getElementById('login-screen').style.display = 'none';
+        document.getElementById('admin-panel').style.display = 'block';
+        loadAllContent();
+      } else {
+        errorEl.style.display = 'block';
+        input.value = '';
+        input.focus();
+      }
+    }
+
+    // Allow Enter key to submit login
+    document.getElementById('login-password').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') attemptLogin();
+    });
+
+    // Check if already authenticated this session
+    if (sessionStorage.getItem('gl_admin_auth') === 'true') {
+      document.getElementById('login-screen').style.display = 'none';
+      document.getElementById('admin-panel').style.display = 'block';
+      loadAllContent();
+    }
+
+    function logout() {
+      sessionStorage.removeItem('gl_admin_auth');
+      location.reload();
+    }
+
+    // --- Tab Switching ---
+    function switchTab(name) {
+      document.querySelectorAll('.tab').forEach(function (t) { t.classList.remove('active'); });
+      document.querySelectorAll('.tab-content').forEach(function (t) { t.classList.remove('active'); });
+      document.getElementById('tab-' + name).classList.add('active');
+      // Activate the matching button
+      document.querySelectorAll('.tab').forEach(function (t) {
+        if (t.textContent.toLowerCase().replace(/\s/g, '') === name.replace(/\s/g, '')) t.classList.add('active');
+      });
+    }
+
+    // --- Content Loading ---
+    function loadAllContent() {
+      fetch('content/writing.json').then(function (r) { return r.json(); }).then(function (data) {
+        contentData.writing = data;
+        renderWritingEntries();
+      });
+      fetch('content/about.json').then(function (r) { return r.json(); }).then(function (data) {
+        contentData.about = data;
+        renderAboutFields();
+      });
+      fetch('content/photos.json').then(function (r) { return r.json(); }).then(function (data) {
+        contentData.photos = data;
+        renderPhotoEntries();
+      });
+    }
+
+    // --- Writing ---
+    function renderWritingEntries() {
+      var container = document.getElementById('writing-entries');
+      container.innerHTML = contentData.writing.map(function (item, i) {
+        return '<div class="edit-card">' +
+          '<div class="edit-card-header">' +
+            '<h3>Entry ' + (i + 1) + '</h3>' +
+            '<button class="btn btn--danger btn--small" onclick="removeWritingEntry(' + i + ')">Remove</button>' +
+          '</div>' +
+          '<div class="field"><label>Category</label>' +
+            '<input value="' + escAttr(item.category) + '" onchange="contentData.writing[' + i + '].category=this.value"></div>' +
+          '<div class="field"><label>Title</label>' +
+            '<input value="' + escAttr(item.title) + '" onchange="contentData.writing[' + i + '].title=this.value"></div>' +
+          '<div class="field"><label>Excerpt</label>' +
+            '<textarea onchange="contentData.writing[' + i + '].excerpt=this.value">' + escHtml(item.excerpt) + '</textarea></div>' +
+          '<div class="field"><label>Year</label>' +
+            '<input value="' + escAttr(item.year) + '" onchange="contentData.writing[' + i + '].year=this.value"></div>' +
+          '<div class="field"><label>Link (optional URL)</label>' +
+            '<input value="' + escAttr(item.link || '') + '" onchange="contentData.writing[' + i + '].link=this.value" placeholder="https://..."></div>' +
+        '</div>';
+      }).join('');
+    }
+
+    function addWritingEntry() {
+      var newId = contentData.writing.length > 0
+        ? Math.max.apply(null, contentData.writing.map(function (w) { return w.id; })) + 1
+        : 1;
+      contentData.writing.push({
+        id: newId, category: '', title: '', excerpt: '', year: new Date().getFullYear().toString(), link: ''
+      });
+      renderWritingEntries();
+    }
+
+    function removeWritingEntry(index) {
+      if (confirm('Remove this writing entry?')) {
+        contentData.writing.splice(index, 1);
+        renderWritingEntries();
+      }
+    }
+
+    function saveWriting() {
+      saveJsonFile('content/writing.json', contentData.writing);
+    }
+
+    // --- About ---
+    function renderAboutFields() {
+      var data = contentData.about;
+      var container = document.getElementById('about-fields');
+
+      var paragraphsHtml = (data.paragraphs || []).map(function (p, i) {
+        return '<div class="field"><label>Paragraph ' + (i + 1) +
+          ' <button class="btn btn--danger btn--small" style="margin-left:8px;padding:4px 10px;" onclick="removeAboutParagraph(' + i + ')">Remove</button></label>' +
+          '<textarea onchange="contentData.about.paragraphs[' + i + ']=this.value">' + escHtml(p) + '</textarea></div>';
+      }).join('');
+
+      var detailsHtml = (data.details || []).map(function (d, i) {
+        return '<div style="display:flex;gap:12px;margin-bottom:12px;">' +
+          '<div class="field" style="flex:1;margin-bottom:0"><label>Label</label>' +
+            '<input value="' + escAttr(d.label) + '" onchange="contentData.about.details[' + i + '].label=this.value"></div>' +
+          '<div class="field" style="flex:2;margin-bottom:0"><label>Value</label>' +
+            '<input value="' + escAttr(d.value) + '" onchange="contentData.about.details[' + i + '].value=this.value"></div>' +
+          '<button class="btn btn--danger btn--small" style="align-self:flex-end;margin-bottom:0;" onclick="removeAboutDetail(' + i + ')">X</button>' +
+        '</div>';
+      }).join('');
+
+      container.innerHTML =
+        '<div class="edit-card">' +
+          '<h3 style="margin-bottom:20px">Profile Image</h3>' +
+          '<div class="field"><label>Image Path (e.g. images/profile.jpg)</label>' +
+            '<input value="' + escAttr(data.image || '') + '" onchange="contentData.about.image=this.value" placeholder="images/profile.jpg"></div>' +
+        '</div>' +
+        '<div class="edit-card">' +
+          '<div class="edit-card-header"><h3>Bio Paragraphs</h3>' +
+            '<button class="btn btn--accent btn--small" onclick="addAboutParagraph()">+ Add</button></div>' +
+          paragraphsHtml +
+        '</div>' +
+        '<div class="edit-card">' +
+          '<div class="edit-card-header"><h3>Details</h3>' +
+            '<button class="btn btn--accent btn--small" onclick="addAboutDetail()">+ Add</button></div>' +
+          detailsHtml +
+        '</div>';
+    }
+
+    function addAboutParagraph() {
+      contentData.about.paragraphs.push('');
+      renderAboutFields();
+    }
+
+    function removeAboutParagraph(i) {
+      contentData.about.paragraphs.splice(i, 1);
+      renderAboutFields();
+    }
+
+    function addAboutDetail() {
+      contentData.about.details.push({ label: '', value: '' });
+      renderAboutFields();
+    }
+
+    function removeAboutDetail(i) {
+      contentData.about.details.splice(i, 1);
+      renderAboutFields();
+    }
+
+    function saveAbout() {
+      saveJsonFile('content/about.json', contentData.about);
+    }
+
+    // --- Photos ---
+    function renderPhotoEntries() {
+      var container = document.getElementById('photo-entries');
+      container.innerHTML = contentData.photos.map(function (photo, i) {
+        var previewHtml = photo.src
+          ? '<img src="' + escAttr(photo.src) + '" style="width:100%;max-height:150px;object-fit:cover;margin-bottom:12px;">'
+          : '';
+        return '<div class="edit-card">' +
+          '<div class="edit-card-header">' +
+            '<h3>Photo ' + (i + 1) + '</h3>' +
+            '<button class="btn btn--danger btn--small" onclick="removePhotoEntry(' + i + ')">Remove</button>' +
+          '</div>' +
+          previewHtml +
+          '<div class="field"><label>Image Path</label>' +
+            '<input value="' + escAttr(photo.src || '') + '" onchange="contentData.photos[' + i + '].src=this.value;renderPhotoEntries()" placeholder="images/photo.jpg"></div>' +
+          '<div class="field"><label>Title</label>' +
+            '<input value="' + escAttr(photo.title) + '" onchange="contentData.photos[' + i + '].title=this.value"></div>' +
+          '<div class="field"><label>Series</label>' +
+            '<input value="' + escAttr(photo.series) + '" onchange="contentData.photos[' + i + '].series=this.value"></div>' +
+          '<div class="field"><label>Layout</label>' +
+            '<select onchange="contentData.photos[' + i + '].layout=this.value">' +
+              '<option value="default"' + (photo.layout === 'default' ? ' selected' : '') + '>Default</option>' +
+              '<option value="tall"' + (photo.layout === 'tall' ? ' selected' : '') + '>Tall (spans 2 rows)</option>' +
+              '<option value="wide"' + (photo.layout === 'wide' ? ' selected' : '') + '>Wide (spans 2 columns)</option>' +
+            '</select></div>' +
+        '</div>';
+      }).join('');
+    }
+
+    function addPhotoEntry() {
+      var newId = contentData.photos.length > 0
+        ? Math.max.apply(null, contentData.photos.map(function (p) { return p.id; })) + 1
+        : 1;
+      contentData.photos.push({
+        id: newId, title: '', series: '', src: '', layout: 'default'
+      });
+      renderPhotoEntries();
+    }
+
+    function removePhotoEntry(index) {
+      if (confirm('Remove this photo?')) {
+        contentData.photos.splice(index, 1);
+        renderPhotoEntries();
+      }
+    }
+
+    function savePhotos() {
+      saveJsonFile('content/photos.json', contentData.photos);
+    }
+
+    // --- Save / Download ---
+    async function saveJsonFile(path, data) {
+      var json = JSON.stringify(data, null, 2) + '\n';
+
+      // Try File System Access API (works when running locally in Chrome)
+      if ('showSaveFilePicker' in window) {
+        try {
+          var filename = path.split('/').pop();
+          var handle = await window.showSaveFilePicker({
+            suggestedName: filename,
+            types: [{ description: 'JSON', accept: { 'application/json': ['.json'] } }]
+          });
+          var writable = await handle.createWritable();
+          await writable.write(json);
+          await writable.close();
+          showToast('Saved ' + filename + ' successfully.');
+          return;
+        } catch (e) {
+          if (e.name === 'AbortError') return; // User cancelled
+        }
+      }
+
+      // Fallback: download the file
+      downloadJson(path.split('/').pop(), data);
+      showToast('Downloaded file. Replace it in your content/ folder.');
+    }
+
+    function downloadFile(section) {
+      var filename = section + '.json';
+      downloadJson(filename, contentData[section]);
+    }
+
+    function downloadJson(filename, data) {
+      var json = JSON.stringify(data, null, 2) + '\n';
+      var blob = new Blob([json], { type: 'application/json' });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    // --- Toast ---
+    function showToast(message) {
+      var toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('visible');
+      setTimeout(function () { toast.classList.remove('visible'); }, 3000);
+    }
+
+    // --- Utility ---
+    function escHtml(str) {
+      var div = document.createElement('div');
+      div.textContent = str || '';
+      return div.innerHTML;
+    }
+
+    function escAttr(str) {
+      return (str || '').replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+  </script>
+</body>
+</html>

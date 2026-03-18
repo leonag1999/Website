@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "title": "Morning Fog",
+    "series": "Coastal Series",
+    "src": "",
+    "layout": "tall"
+  },
+  {
+    "id": 2,
+    "title": "Golden Hour",
+    "series": "Urban Light",
+    "src": "",
+    "layout": "default"
+  },
+  {
+    "id": 3,
+    "title": "Still Water",
+    "series": "Reflections",
+    "src": "",
+    "layout": "default"
+  },
+  {
+    "id": 4,
+    "title": "The Long Road",
+    "series": "Journeys",
+    "src": "",
+    "layout": "wide"
+  },
+  {
+    "id": 5,
+    "title": "Doorways",
+    "series": "Architecture",
+    "src": "",
+    "layout": "default"
+  },
+  {
+    "id": 6,
+    "title": "Dusk",
+    "series": "Evening Series",
+    "src": "",
+    "layout": "tall"
+  }
+]
